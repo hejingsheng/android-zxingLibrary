@@ -39,6 +39,7 @@ public class CodeUtils {
     public static final int RESULT_FAILED = 2;
 
     public static final String LAYOUT_ID = "layout_id";
+    public static final String CAMERA_ID = "camera_id";
 
 
 
@@ -192,13 +193,14 @@ public class CodeUtils {
      * @param captureFragment
      * @param layoutId
      */
-    public static void setFragmentArgs(CaptureFragment captureFragment, int layoutId) {
+    public static void setFragmentArgs(CaptureFragment captureFragment, int layoutId, int cameraId) {
         if (captureFragment == null || layoutId == -1) {
             return;
         }
 
         Bundle bundle = new Bundle();
         bundle.putInt(LAYOUT_ID, layoutId);
+        bundle.putInt(CAMERA_ID, cameraId);
         captureFragment.setArguments(bundle);
     }
 

@@ -48,6 +48,8 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
     private CodeUtils.AnalyzeCallback analyzeCallback;
     private Camera camera;
 
+    private int cameraId;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,9 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
             if (layoutId != -1) {
                 view = inflater.inflate(layoutId, null);
             }
+            cameraId = bundle.getInt(CodeUtils.CAMERA_ID, Camera.CameraInfo.CAMERA_FACING_BACK);
+        } else {
+            cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
         }
 
         if (view == null) {
@@ -144,7 +149,7 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
 
     private void initCamera(SurfaceHolder surfaceHolder) {
         try {
-            CameraManager.get().openDriver(surfaceHolder);
+            CameraManager.get().openDriver(surfaceHolder, cameraId);
             camera = CameraManager.get().getCamera();
         } catch (Exception e) {
             if (callBack != null) {
@@ -232,7 +237,7 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
         }
         if (vibrate) {
             Vibrator vibrator = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
-            vibrator.vibrate(VIBRATE_DURATION);
+            //vibrator.vibrate(VIBRATE_DURATION);
         }
     }
 
